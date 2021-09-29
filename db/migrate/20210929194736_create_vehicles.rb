@@ -4,7 +4,7 @@ class CreateVehicles < ActiveRecord::Migration[6.1]
       t.string :make
       t.string :model
       t.string :type
-      t.boolean :is_new
+      t.boolean :is_new, :default => false
       t.decimal :mileage
       t.string :image
       t.decimal :price
