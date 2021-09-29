@@ -58,6 +58,81 @@ vehicles = [
     }
 ]
 
+users = [
+    {
+        username: "1234",
+        email: "1234@example.com",
+        admin: false,
+        password: "1234"
+    },
+    {
+        username: "abcd",
+        email: "abcd@example.com",
+        admin: false,
+        password: "abcd"
+    },
+    {
+        username: "admin",
+        email: "admin@example.com",
+        admin: true,
+        password: "admin"
+    }
+
+]
+
+comments = [
+    {
+        vehicle_id: 1,
+        user_id: 1,
+        content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    },
+    {
+        vehicle_id: 1,
+        user_id: 2,
+        content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    },
+    {
+        vehicle_id: 2,
+        user_id: 1,
+        content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    },
+    {
+        vehicle_id: 2,
+        user_id: 2,
+        content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    },
+    {
+        vehicle_id: 3,
+        user_id: 1,
+        content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    },
+    {
+        vehicle_id: 3,
+        user_id: 2,
+        content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    },
+    {
+        vehicle_id: 4,
+        user_id: 1,
+        content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    },
+    {
+        vehicle_id: 4,
+        user_id: 2,
+        content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    }
+]
+
+users.each do |user|
+    User.find_or_create_by(email: user[:email]) do |u|
+        u.username = user[:username]
+        u.email = user[:email]
+        u.admin = user[:admin]
+        u.password = user[:password]
+        puts "#{u.username} has been created."
+    end
+end
+
 vehicles.each do |vehicle|
     Vehicle.find_or_create_by(vin: vehicle[:vin]) do |veh|
         veh.make = vehicle[:make]
@@ -69,5 +144,13 @@ vehicles.each do |vehicle|
         veh.price = vehicle[:price]
         veh.year = vehicle[:year]
         veh.vin = vehicle[:vin]
+    end
+end
+
+comments.each do |comment|
+    Comment.find_or_create_by(vehicle_id: comment[:vehicle_id], user_id: comment[:user_id]) do |c|
+        c.vehicle_id = comment[:vehicle_id]
+        c.user_id = comment[:user_id]
+        c.content = comment[:content]
     end
 end
