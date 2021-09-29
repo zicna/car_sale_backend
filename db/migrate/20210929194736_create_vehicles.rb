@@ -3,7 +3,7 @@ class CreateVehicles < ActiveRecord::Migration[6.1]
     create_table :vehicles do |t|
       t.string :make
       t.string :model
-      t.string :type
+      t.string :segment
       t.boolean :is_new, :default => false
       t.decimal :mileage
       t.string :image
