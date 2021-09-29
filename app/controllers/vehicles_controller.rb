@@ -1,8 +1,9 @@
 class VehiclesController < ApplicationController
+    before_action :options, only: [:index, :show]
     def index
         vehicles = Vehicle.all
 
-        render json: vehicles
+        render json: vehicles.as_json(options)
     end
 
     def show
@@ -10,4 +11,13 @@ class VehiclesController < ApplicationController
 
         render json: vehicle
     end
-end
+
+    private 
+    def options
+        {
+            include: {
+                comments: {only: [:content, :user_id, :vehicle_id]}
+            }
+        }
+    end
+end 
